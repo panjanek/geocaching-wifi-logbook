@@ -13,12 +13,13 @@ The WiFi network is:
 network:  GeocacheLogbook
 password: geocaching
 ```
+![WiFi](https://github.com/panjanek/geocaching-wifi-logbook/blob/b63d9804281006503b137e272b46f5a05722d93a/img/qrcode-wifi.png "wifi")
 
-The web page is at:
+The web page will be available at address:
 ```
 http://192.168.4.1
 ```
-
+![address](https://github.com/panjanek/geocaching-wifi-logbook/blob/b63d9804281006503b137e272b46f5a05722d93a/img/qrcode-url.png "address")
 
 ## Features
 
