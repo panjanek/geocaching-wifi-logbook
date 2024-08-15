@@ -1,0 +1,390 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Logbook WiFi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<style>
+		* {box-sizing: border-box;}
+
+		body { 
+		  margin: 0;
+		  font-family: Arial, Helvetica, sans-serif;
+		}
+
+		#navbar {
+		  overflow: hidden;
+		  background-color: #f1f1f1;
+		  padding: 90px 10px;
+		  transition: 0.4s;
+		  position: fixed;
+		  width: 100%;
+		  top: 0;
+		  z-index: 99;
+		}
+
+		#navbar a {
+		  float: left;
+		  color: black;
+		  text-align: center;
+		  padding: 12px;
+		  text-decoration: none;
+		  font-size: 18px; 
+		  line-height: 25px;
+		  border-radius: 4px;
+		}
+
+		#navbar #logo {
+		  font-size: 35px;
+		  font-weight: bold;
+		  transition: 0.4s;
+		}
+
+		#navbar a:hover {
+		  background-color: #ddd;
+		  color: black;
+		}
+
+		#navbar a.active {
+		  background-color: dodgerblue;
+		  color: white;
+		}
+
+		#navbar-right {
+		  float: right;
+		}
+
+		@media screen and (max-width: 580px) {
+		  #navbar {
+			padding: 20px 10px !important;
+		  }
+		  #navbar a {
+			float: none;
+			display: block;
+			text-align: left;
+		  }
+		  #navbar-right {
+			float: none;
+		  }
+		}
+	
+	.footer {
+	  position: fixed;
+	  left: 0;
+	  bottom: 0;
+	  width: 100%;
+	  background-color: #04AA6D;
+	  color: white;
+	  text-align: center;
+	}
+
+	input[type=submit] {
+	  background-color: #04AA6D;
+	  color: white;
+	  padding: 12px 20px;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+	}
+
+	input[type=submit]:hover {
+	  background-color: #45a049;
+	}
+
+	.container {
+	  display: block;
+	  position: relative;
+	  padding-left: 35px;
+	  margin-bottom: 12px;
+	  cursor: pointer;
+	  font-size: 22px;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+	}
+
+	/* Hide the browser's default checkbox */
+	.container input {
+	  position: absolute;
+	  opacity: 0;
+	  cursor: pointer;
+	  height: 0;
+	  width: 0;
+	}
+
+	/* Create a custom checkbox */
+	.checkmark {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  height: 25px;
+	  width: 25px;
+	  background-color: #eee;
+	}
+
+	/* On mouse-over, add a grey background color */
+	.container:hover input ~ .checkmark {
+	  background-color: #ccc;
+	}
+
+	/* When the checkbox is checked, add a blue background */
+	.container input:checked ~ .checkmark {
+	  background-color: #2196F3;
+	}
+
+	/* Create the checkmark/indicator (hidden when not checked) */
+	.checkmark:after {
+	  content: "";
+	  position: absolute;
+	  display: none;
+	}
+
+	/* Show the checkmark when checked */
+	.container input:checked ~ .checkmark:after {
+	  display: block;
+	}
+
+	/* Style the checkmark/indicator */
+	.container .checkmark:after {
+	  left: 9px;
+	  top: 5px;
+	  width: 5px;
+	  height: 10px;
+	  border: solid white;
+	  border-width: 0 3px 3px 0;
+	  -webkit-transform: rotate(45deg);
+	  -ms-transform: rotate(45deg);
+	  transform: rotate(45deg);
+	}
+    .msg {
+	  width: 100%;
+	  background-color: green;
+	  color: white;
+	  text-align: center;
+	}
+	
+	table {
+	  border-collapse: collapse;
+	  border-spacing: 0;
+	  width: 100%;
+	  border: 1px solid #ddd;
+	}
+
+	th, td {
+	  text-align: left;
+	  padding: 16px;
+	}
+
+	tr:nth-child(even) {
+	  background-color: #f2f2f2;
+	}	
+	
+	</style>
+</head>
+<body>
+	<div id="navbar">
+	  <a href="#default" id="logo">Wifi Logbook</a>
+	  <div id="navbar-right">
+		<a href="/">Back to home</a>
+		<a class="active" href="/admin">Admin</a>
+	  </div>
+	</div>
+
+    <div style="margin-top:210px;padding:15px; 15px; 700px;font-size:18px">
+	
+	  <div id="msg-ok" style="display:none;"> 
+	    <div class="msg">Operation succes</div>
+      </div>
+	  
+	  <div id="msg-err" style="display:none;"> 
+	    <div class="msg" style="background-color:red;">Operation failed or invalid password</div>
+      </div>	  
+	  
+	  <div id="finish-form">
+		  <h2>Admin commands:</h2>
+		  
+		  <form action="/admin" method="POST">
+		  
+		  	<label for="password">Admin password</label>
+		    <input type="text" id="password" name="password" placeholder="password..." maxlength="20" required  onchange="this.style='';"/>
+			
+			 <p>Delete data:</p>
+			<label class="container">Clear logbook
+			  <input id="logbook" name="logbook" type="checkbox"/>
+			  <span class="checkmark"></span>
+			</label>
+			
+			<label class="container">Clear syslog
+			  <input id="syslog" name="syslog" type="checkbox"/>
+			  <span class="checkmark"></span>
+			</label>	
+
+			<label class="container">Clear stats
+			  <input id="stats" name="stats" type="checkbox"/>
+			  <span class="checkmark"></span>
+			</label>				
+		
+			<input type="submit" value="Delete"/>
+		  </form>
+		  
+		  <p>Select a new file to upload (html ort txt). Existing files will be replaced.</p>
+		  <form id="upload" method="POST" enctype="multipart/form-data" action="/upload?password=">
+			<input type="file" name="file" accept=".txt,.html,.dat" required>
+			<input type="submit" value="Upload" onclick="return sendPassword();"/>
+		  </form>
+	  </div>
+	  
+	  <h2>System info</h2>
+		<table>
+		  <tbody>
+		    <tr>
+			  <td>Logbook entries</td>
+			  <td id="size"></td>
+			</tr>
+			<tr>
+			  <td>Power ups</td>
+			  <td id="pwr"></td>
+			</tr>
+			<tr>
+			  <td>Total up seconds</td>
+			  <td id="ups"></td>
+			</tr>	
+			<tr>
+			  <td>Manual shutdowns</td>
+			  <td id="man"></td>
+			</tr>		
+			<tr>
+			  <td>Battery voltage</td>
+			  <td id="bat"></td>
+			</tr>	
+			<tr>
+			  <td>Free FS space</td>
+			  <td id="fs"></td>
+			</tr>			
+		  </tbody>
+		</table>
+		
+
+		<h2>System log</h2>
+		<table style="font-size:12px;">
+		  <thead>
+			  <tr>
+			    <th>Nr</th>
+				<th>Power up Nr</th>
+				<th>msg</th>
+				<th>Free space</th>
+				<th>Battery Vcc</th>
+			  </tr>
+		  </thead>
+		  <tbody id="rows">
+		  </tbody>
+		</table>
+			
+
+		
+		</br/>
+		</br/>
+		</br/>
+		</br/>
+
+   </div>
+	
+	<div class="footer">
+       <p>by PanJanek123</p>
+    </div>
+	
+	<script>
+	
+		window.onscroll = function() {scrollFunction()};
+
+		function scrollFunction() {
+		  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+			document.getElementById("navbar").style.padding = "30px 10px";
+			document.getElementById("logo").style.fontSize = "25px";
+		  } else {
+			document.getElementById("navbar").style.padding = "80px 10px";
+			document.getElementById("logo").style.fontSize = "35px";
+		  }
+		}	
+		
+		
+	  const urlParams = new URLSearchParams(window.location.search);
+	  const msg = urlParams.get('msg');
+	  if (msg == "ok") {
+		document.getElementById("msg-ok").style.display = "";
+	  }
+	  if (msg == "err") {
+		document.getElementById("msg-err").style.display = "";
+	  }	  
+	  
+	    var loadData = function(responseType, url, callback) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', url, true);
+			xhr.responseType = responseType;
+			xhr.onload = function() {
+			  var status = xhr.status;
+			  if (status === 200) {
+				callback(null, xhr.response);
+			  } else {
+				callback(status, xhr.response);
+			  }
+			};
+			xhr.send();
+		};
+
+		function handleStatus(json) {
+		  document.getElementById("size").textContent = json.size;
+		  document.getElementById("pwr").textContent = json.pwr;
+		  document.getElementById("ups").textContent = json.ups;
+		  document.getElementById("man").textContent = json.man;
+		  document.getElementById("bat").textContent = json.bat;
+		  document.getElementById("fs").textContent = json.fs;
+		  
+		  loadData("text", "/syslog.txt", function(status, text) {
+			handleSyslog(text);
+		  });
+        }		
+		
+		function handleSyslog(text) {
+		  html = "";
+		  var lines = text.split("\n");
+		  for(var l=0; l<lines.length; l++) {
+		    var line = lines[l];
+			console.log(line);
+			if (line.length > 0) {
+			    html += "<tr>";
+				html += "<td>"+(l+1)+". </td>";
+				var fields = line.split("\t");
+				for(var f=0; f<fields.length; f++) {
+				  var field = fields[f];
+				  html += "<td>"+field+"</td>";
+				}
+				html += "</tr>";
+			}
+		  }
+		  document.getElementById("rows").innerHTML  = html;
+		}
+		
+		loadData("json", "/internal", function(status, json) {
+		  handleStatus(json);
+		});
+		
+		function sendPassword(){
+			password = document.getElementById('password');
+			
+			if (!password.value) {
+			  password.style["background-color"] = "#ffabaf";
+			  return false;
+			}
+			
+			form = document.getElementById('upload');
+			form.action = form.action + password.value;
+			return true; 
+		}		
+		
+		setInterval(function() { loadData("json", "/status", function(status, json) { });  }, 30000);	
+		
+	</script>
+</body>
+</html>
