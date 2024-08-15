@@ -121,9 +121,9 @@
 	  <a href="#default" id="logo"><span id="title">Wifi Logbook<span></a>
 	  <div id="navbar-right">
 		<a href="/">Start</a>
-		<a class="active" href="/signin">Wpisz się</a>
-		<a href="/browse">Przeglądaj</a>
-		<a href="/finish">Wyłącz</a>
+		<a class="active" href="/signin">Log find</a>
+		<a href="/browse">Browse</a>
+		<a href="/finish">Turn off</a>
 	  </div>
 	</div>    
 
@@ -131,16 +131,16 @@
     <br/>
     <br/>	
     <div style="margin-top:210px;padding:15px; 15px; 700px;font-size:18px">
-	  <h3>Wpis nr <span id="counter">...</span>:</h3>
+	  <h3>Entry nr <span id="counter">...</span>:</h3>
 	  <form action="/signin" method="POST">
-		<label for="date">Data</label>
+		<label for="date">Date</label>
 		<input type="text" id="date" name="date" value="" readonly="true" maxlength="20">	  
 	  
-		<label for="nick">Nick (max 20 znaków)</label>
+		<label for="nick">Nick (max 20 characters)</label>
 		<input type="text" id="nick" name="nick" placeholder="Nick..." maxlength="20" required>
 
-		<label for="info">Wpis (max 100 znaków)</label>
-		<textarea id="info" name="info" placeholder="Napisz coś..." style="height:100px" maxlength="100" required></textarea>
+		<label for="info">Message (max 100 characters)</label>
+		<textarea id="info" name="info" placeholder="message..." style="height:100px" maxlength="100" required></textarea>
 
 		<input type="submit" value="Submit">
 	  </form>
