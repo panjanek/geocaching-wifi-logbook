@@ -1,4 +1,4 @@
-# Geocaching gadget: WiFi logboom
+# Geocaching gadget: WiFi logbook
 Geocaching gadget: WiFi logbook
 If you are new to geocaching go to https://www.geocaching.com/ .
 Each geocaching hide contains small paper logbook where people log their visit using pencil. 
