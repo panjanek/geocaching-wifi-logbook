@@ -8,6 +8,18 @@ After pressing a button WiFi logbook enables temporary WiFi network.
 Geocachers can connect to the network and leave a short message using browser UI. The can browse previous messages too.
 This project uses ESP8266 microcontroller.
 
+The WiFi network is:
+```
+network:  GeocacheLogbook
+password: geocaching
+```
+
+The web page is at:
+```
+http://192.168.4.1
+```
+
+
 ## Features
 
 * Allows user to input logbook entry: nick (max, max 20 letters) and message (max 100 letters) using simple Web UI.
@@ -53,4 +65,7 @@ In Arduino IDE:
 5. Connect USB Serial converter: cross TX and RX. VCC, GND. Connect GPIO0 to GND to enter software upload mode
 6. Set Tooles -> Port -> To the COM port where your converter showed up
 7. Upload
-8. To upload HTML files from data folder 
+8. To upload HTML files from data folder install this plugin: https://github.com/earlephilhower/arduino-littlefs-upload
+9. Hit `[Ctrl]` + `[Shift]` + `[P]` then "Upload LittleFS to Pico/ESP8266/ESP32".
+
+ ## prototyping
