@@ -70,3 +70,11 @@ In Arduino IDE:
 9. Hit `[Ctrl]` + `[Shift]` + `[P]` then "Upload LittleFS to Pico/ESP8266/ESP32".
 
  ## prototyping
+
+ ![prototype](https://github.com/panjanek/geocaching-wifi-logbook/blob/73a6f90191dba9f97f6a79ddb88f07ddb76987e4/img/prototype.png "prototype")
+
+ # Web UI
+
+ ![Web UI](https://github.com/panjanek/geocaching-wifi-logbook/blob/73a6f90191dba9f97f6a79ddb88f07ddb76987e4/img/web-ui1.png "webui")
+ ![Web UI](https://github.com/panjanek/geocaching-wifi-logbook/blob/73a6f90191dba9f97f6a79ddb88f07ddb76987e4/img/web-ui2.png "webui")
+ ![Web UI](https://github.com/panjanek/geocaching-wifi-logbook/blob/73a6f90191dba9f97f6a79ddb88f07ddb76987e4/img/web-ui3.png "webui")
